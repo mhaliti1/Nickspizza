@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
-  getAuth,
   GoogleAuthProvider,
+  getAuth,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -16,22 +16,18 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-import { toast } from "react-toastify";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyBSKlEs3idKYtSKOpXphNvsAZm72nknmZc",
-  authDomain: "nickspizza-2081e.firebaseapp.com",
-  projectId: "nickspizza-2081e",
-  storageBucket: "nickspizza-2081e.appspot.com",
-  messagingSenderId: "137758503909",
-  appId: "1:137758503909:web:6ab30ecfbdcf44bf4c750c",
+  apiKey: "AIzaSyBTBRijbUCtRhKurNH5neco6kIPVt46bFk",
+  authDomain: "nickspizza-974c5.firebaseapp.com",
+  databaseURL: "https://nickspizza-974c5-default-rtdb.firebaseio.com",
+  projectId: "nickspizza-974c5",
+  storageBucket: "nickspizza-974c5.appspot.com",
+  messagingSenderId: "1034659994016",
+  appId: "1:1034659994016:web:d4912603b562243378ecc5",
 };
-
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
@@ -46,7 +42,6 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: "google",
         email: user.email,
-        isAdmin: false,
       });
     }
   } catch (err) {
@@ -54,17 +49,14 @@ const signInWithGoogle = async () => {
     alert(err.message);
   }
 };
-
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
-
-    toast.error(err.message);
+    alert(err.message);
   }
 };
-
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -74,14 +66,12 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       name,
       authProvider: "local",
       email,
-      isAdmin: false,
     });
   } catch (err) {
     console.error(err);
     alert(err.message);
   }
 };
-
 const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -91,11 +81,9 @@ const sendPasswordReset = async (email) => {
     alert(err.message);
   }
 };
-
 const logout = () => {
   signOut(auth);
 };
-
 export {
   auth,
   db,
